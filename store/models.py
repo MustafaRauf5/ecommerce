@@ -15,15 +15,15 @@ class Customer(models.Model):
         return self.name
 
 class Product(models.Model):
-    name = models.CharFeild(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)
-
-    def __str__(self):
-        return self.name
+    
+def __str__(self):
+          return self.name
 
 class Order(models.Model):
-    customer = models.ForeignKey(customer, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_orderd = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
@@ -32,21 +32,20 @@ class Order(models.Model):
         return str(self.id)
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, )
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, )
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
 class ShippingAddress(models.Model):
-    Customer = models.ForeignKey(Customer, on_delete=models)
-    Order = models.ForeignKey(Order, on_delete=models.SET_NULL)
-    address = models.CharField(max_length=200, null=True)
-    city = models.CharField(max_length=200, null=True)
-    state = models.CharField(max_length=200, null=True)
-    zipcode = models.CharField(max_length=200, null=True)
-    name = models.CharField(max_length=200, null=True)
+    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    Order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    address = models.CharField(max_length=200, null=False)
+    city = models.CharField(max_length=200, null=False)
+    state = models.CharField(max_length=200, null=False)
+    zipcode = models.CharField(max_length=200, null=False)
+    name = models.CharField(max_length=200, null=False)
 
     def __str__(self):
         return self.address
     
-
