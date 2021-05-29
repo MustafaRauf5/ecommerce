@@ -32,19 +32,19 @@ class Order(models.Model):
         return str(self.id)
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, )
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, )
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
 class ShippingAddress(models.Model):
-    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    Order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    address = models.CharField(max_length=200, null=False)
-    city = models.CharField(max_length=200, null=False)
-    state = models.CharField(max_length=200, null=False)
-    zipcode = models.CharField(max_length=200, null=False)
-    name = models.CharField(max_length=200, null=False)
+    Customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    Order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
+    address = models.CharField(max_length=200, null=True)
+    city = models.CharField(max_length=200, null=True)
+    state = models.CharField(max_length=200, null=True)
+    zipcode = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.address
