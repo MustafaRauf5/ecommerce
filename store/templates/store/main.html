@@ -11,14 +11,14 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
   <script type="text/javascript">
-      var user = '{{request.user}}'
+		var user = '{{request.user}}'
 
-      function getCookie(name) {
-      let cookieValue = null;
+    function getToken(name) {
+      var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
-          const cookies = document.cookie.split(';');
-          for (let i = 0; i < cookies.length; i++) {
-              const cookie = cookies[i].trim();
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
               // Does this cookie string begin with the name we want?
               if (cookie.substring(0, name.length + 1) === (name + '=')) {
                   cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -28,7 +28,8 @@
       }
       return cookieValue;
   }
-  const csrftoken = getCookie('csrftoken');
+  var csrftoken = getToken('csrftoken');
+
   </script>
 
 </head>
@@ -54,7 +55,7 @@
 	     	<a href="{% url 'cart' %}">
 	    		<img  id="cart-icon" src="{% static 'main/6+cart.png' %}">
 	    	</a>
-	    	<p id="cart-total">0</p>
+	    	<p id="cart-total">{{cartItems}}</p>
 
 	    </div>
   </div>
