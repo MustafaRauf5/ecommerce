@@ -1,9 +1,11 @@
+from django.forms.forms import Form
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
 import datetime
+from .forms import CustomerForm
 from .models import *
-
+from .models import Customer
 
 # Create your views here.
 
@@ -100,3 +102,15 @@ def processOrder(request):
 	else:
 		print('user is not logged in')
 	return JsonResponse('Payment complete!', safe=False)
+
+def signup(request):
+	
+    form = CustomerForm()
+
+    if request.method == 'POST':
+	    form = CustomerForm(request.POST)
+    if form.is_valid():
+            form.save()
+
+    context = {'form':form}
+    return render(request, 'signup.html', context)
